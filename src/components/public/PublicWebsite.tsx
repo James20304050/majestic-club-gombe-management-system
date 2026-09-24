@@ -35,6 +35,7 @@ import {
 import { Product, ProductCategory, SnookerTable, SnookerBooking, EventBooking, HotelRoom, HotelBooking } from '../../types';
 import { formatNaira } from '../../utils/helpers';
 import { CLUB_IMAGES, GALLERY_ITEMS } from '../../assets/clubImages';
+import { MembershipPlans } from './MembershipPlans';
 
 interface PublicWebsiteProps {
   products: Product[];
@@ -259,6 +260,7 @@ export const PublicWebsite: React.FC<PublicWebsiteProps> = ({
             <a href="#food" className="hover:text-amber-400 transition">Grill</a>
             <a href="#snooker" className="hover:text-amber-400 transition">Snooker</a>
             <a href="#vip" className="hover:text-amber-400 transition">VIP Cabanas</a>
+            <a href="#membership" className="hover:text-amber-400 transition">Membership</a>
             <a href="#events" className="hover:text-amber-400 transition">Events</a>
             <a href="#gallery" className="hover:text-amber-400 transition">Gallery</a>
             <a href="#contact" className="hover:text-amber-400 transition">Location</a>
@@ -1433,6 +1435,21 @@ export const PublicWebsite: React.FC<PublicWebsiteProps> = ({
           </div>
         </div>
       </section>
+
+      {/* MEMBERSHIP PLANS (tiered club membership modeled on Vercel's plan structure) */}
+      <MembershipPlans
+        onSelectPlan={(planId) => {
+          if (planId === 'GUEST') {
+            const drinks = document.getElementById('drinks');
+            if (drinks) drinks.scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+          const label = planId === 'GOLD' ? 'Gold Membership' : 'Presidential Elite membership';
+          handleWhatsAppChat(
+            `Hello Majestic Club, I would like to enquire about joining the ${label}. Please share the details.`
+          );
+        }}
+      />
 
       {/* GALLERY SHOWCASE (All Official Authentic Photos with Zoom Lightbox) */}
       <section id="gallery" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
