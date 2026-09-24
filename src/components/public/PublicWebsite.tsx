@@ -36,6 +36,7 @@ import { Product, ProductCategory, SnookerTable, SnookerBooking, EventBooking, H
 import { formatNaira } from '../../utils/helpers';
 import { CLUB_IMAGES, GALLERY_ITEMS } from '../../assets/clubImages';
 import { MembershipPlans } from './MembershipPlans';
+import { GuestPassModal } from './GuestPassModal';
 
 interface PublicWebsiteProps {
   products: Product[];
@@ -108,6 +109,7 @@ export const PublicWebsite: React.FC<PublicWebsiteProps> = ({
   });
 
   const [bookingSuccessMsg, setBookingSuccessMsg] = useState<string | null>(null);
+  const [isGuestPassOpen, setIsGuestPassOpen] = useState(false);
 
   const categories: (ProductCategory | 'ALL')[] = ['ALL', 'BEER', 'SPIRITS', 'WINE', 'SOFT DRINKS', 'WATER', 'OTHER DRINKS'];
 
@@ -1440,14 +1442,23 @@ export const PublicWebsite: React.FC<PublicWebsiteProps> = ({
       <MembershipPlans
         onSelectPlan={(planId) => {
           if (planId === 'GUEST') {
-            const drinks = document.getElementById('drinks');
-            if (drinks) drinks.scrollIntoView({ behavior: 'smooth' });
+            setIsGuestPassOpen(true);
             return;
           }
           const label = planId === 'GOLD' ? 'Gold Membership' : 'Presidential Elite membership';
           handleWhatsAppChat(
             `Hello Majestic Club, I would like to enquire about joining the ${label}. Please share the details.`
           );
+        }}
+      />
+
+      {/* GUEST PASS SIGN-UP FLOW (free tier onboarding) */}
+      <GuestPassModal
+        open={isGuestPassOpen}
+        onClose={() => setIsGuestPassOpen(false)}
+        onConfirmViaWhatsApp={(message) => {
+          handleWhatsAppChat(message);
+          setIsGuestPassOpen(false);
         }}
       />
 
