@@ -1,0 +1,6 @@
+{
+  "name": "Majestic Club Gombe Management System",
+  "description": "Comprehensive entertainment, bar, refrigerator inventory, snooker and VIP booking management system for Majestic Club in Gombe State, Nigeria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
